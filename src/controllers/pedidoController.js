@@ -24,13 +24,13 @@ const getPedido = async (req, res) => {
 const createPedido = async (req, res) => {
     try {
         const { name, quantidade, valor, endereco, entrega_id } = req.body;
-        const photo = req.file ? req.file.path : null; 
+        const photo = req.file ? req.file.path : null;
         const newPedido = await pedidoModel.createPedido(name, quantidade, valor, endereco, entrega_id, photo);
 
         res.status(201).json(newPedido);
     } catch (error) {
-        console.error("Erro ao criar pedido:", error); 
-        res.status(500).json({ message: "Erro ao criar pedido." }); 
+        console.error("Erro ao criar pedido:", error);
+        res.status(500).json({ message: "Erro ao criar pedido." });
     }
 };
 
@@ -57,13 +57,13 @@ const updatePedido = async (req, res) => {
 };
 
 const filterPedidosByStatus = async (req, res) => {
-    const { status } = req.query; 
+    const { status } = req.query;
     try {
         if (!status) {
             return res.status(400).json({ message: "O parâmetro 'status' é obrigatório." });
         }
 
-        const pedidos = await  filterPedidosByStatus (status);
+        const pedidos = await filterPedidosByStatus(status);
 
         if (pedidos.length === 0) {
             return res.status(404).json({ message: "Nenhum pedido encontrado com o status especificado." });
@@ -71,7 +71,7 @@ const filterPedidosByStatus = async (req, res) => {
 
         res.status(200).json(pedidos);
     } catch (error) {
-        console.error("Erro ao buscar pedidos por status:", error); 
+        console.error("Erro ao buscar pedidos por status:", error);
         res.status(500).json({ message: "Erro ao buscar pedido." });
     }
 };

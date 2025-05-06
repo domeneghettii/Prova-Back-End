@@ -1,7 +1,5 @@
 const PDFDocument = require("pdfkit");
-
 const pedidoModel = require("../models/pedidoModel");
-
 const entregaModel = require("../models/entregaModel");
 
 const exportPedidoPDF = async (req, res) => {
@@ -9,8 +7,9 @@ const exportPedidoPDF = async (req, res) => {
         const pedidos = await pedidoModel.getPedidos();
         const entregas = await entregaModel.getEntregas();
 
+
         res.setHeader("Content-Type", "application/pdf");
-        res.setHeader("Content-Disposition", "attachment; filename=pedidos.pdf");
+        res.setHeader("Content-Disposition", "inline; filename=pedidos.pdf");
 
         const doc = new PDFDocument();
         doc.pipe(res);
@@ -26,7 +25,7 @@ const exportPedidoPDF = async (req, res) => {
         // Adicionar dados dos pedidos
         pedidos.forEach((pedido) => {
             doc.text(
-                `${pedido.id} | ${pedido.name} | ${pedido.endereco} | ${pedido.telefone} | ${pedido.produto}`
+                `${pedido.id} | ${pedido.name} | ${pedido.endereco} | ${pedido.telefone || "N/A"} | ${pedido.produto || "N/A"}`
             );
         });
 
@@ -44,7 +43,7 @@ const exportPedidoPDF = async (req, res) => {
         // Adicionar dados das entregas
         entregas.forEach((entrega) => {
             doc.text(
-                `${entrega.id} | ${entrega.name} | ${entrega.endereco} | ${entrega.telefone} | ${entrega.produto}`
+                `${entrega.id} | ${entrega.name} | ${entrega.endereco} | ${entrega.telefone || "N/A"} | ${entrega.produto || "N/A"}`
             );
         });
 

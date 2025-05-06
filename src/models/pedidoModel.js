@@ -20,7 +20,7 @@ const getPedidoById = async (id) => {
 };
 
 //Atualizar para receber photo.
-const createPedido = async (name, quantidade, valor, endereco, entrega_id,  photo) => {
+const createPedido = async (name, quantidade, valor, endereco, entrega_id, photo) => {
     const result = await pool.query(
         `INSERT INTO pedidos (name, quantidade, valor, endereco, entrega_id, photo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
         [name, quantidade, valor, endereco, entrega_id, photo]

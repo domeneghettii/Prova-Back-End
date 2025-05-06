@@ -1,9 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const reportController = require("../controllers/reportController");
-const apiKeyMiddleware = require("../config/apiKey"); // 🔐
-router.use(apiKeyMiddleware); // 🔒 Protege todas as rotas
+const { exportPedidoPDF } = require("../controllers/reportController");
 
-router.get("/", reportController.exportPedidoPDF); // Exporta o PDF com os pedidos e entregas
+router.get("/export-pedidos", exportPedidoPDF);
 
 module.exports = router;
