@@ -30,7 +30,7 @@ const createPedido = async (req, res) => {
         res.status(201).json(newPedido);
     } catch (error) {
         console.error("Erro ao criar pedido:", error); 
-        res.status(500).json({ message: "Erro ao criar pedido.", details: error.message }); 
+        res.status(500).json({ message: "Erro ao criar pedido." }); 
     }
 };
 

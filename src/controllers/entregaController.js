@@ -6,7 +6,7 @@ const getAllEntregas = async (req, res) => {
         res.status(200).json(entregas);
     } catch (error) {
         console.error("Erro ao buscar entregas:", error); 
-        res.status(500).json({ error: "Erro ao buscar entregas", details: error.message }); 
+        res.status(500).json({ error: "Erro ao buscar entregas"}); 
     }
 };
 
@@ -19,7 +19,7 @@ const getEntregaById = async (req, res) => {
         res.status(200).json(entrega);
     } catch (error) {
         console.error("Erro ao buscar entrega por ID:", error);
-        res.status(500).json({ error: "Erro ao buscar entrega", details: error.message }); 
+        res.status(500).json({ error: "Erro ao buscar entrega" }); 
 }
     };
 
@@ -42,8 +42,8 @@ const updateEntrega = async (req, res) => {
         }
         res.status(200).json(entregaAtualizada);
     } catch (error) {
-        console.error("Erro ao atualizar entrega:", error); // Log do erro no console
-        res.status(500).json({ error: "Erro ao atualizar entrega", details: error.message }); // Detalhes do erro
+        console.error("Erro ao atualizar entrega:", error); 
+        res.status(500).json({ error: "Erro ao atualizar entrega"}); 
     }
 };
 
@@ -51,13 +51,13 @@ const deleteEntrega = async (req, res) => {
     try {
         const resultado = await entregaModel.deleteEntrega(req.params.id);
         if (resultado.error) {
-            console.error("Erro ao deletar entrega:", resultado.error); // Log do erro no console
+            console.error("Erro ao deletar entrega:", resultado.error); 
             return res.status(404).json(resultado);
         }
         res.status(200).json(resultado);
     } catch (error) {
-        console.error("Erro ao deletar entrega:", error); // Log do erro no console
-        res.status(500).json({ error: "Erro ao deletar entrega", details: error.message }); // Detalhes do erro
+        console.error("Erro ao deletar entrega:", error); 
+        res.status(500).json({ error: "Erro ao deletar entrega" }); 
     }
 };
 
