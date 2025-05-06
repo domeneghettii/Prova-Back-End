@@ -23,9 +23,9 @@ const getPedido = async (req, res) => {
 
 const createPedido = async (req, res) => {
     try {
-        const { name, quantidade, valor, endereco, entrega_id } = req.body;
+        const { name, quantidade, valor, endereco, status, entrega_id } = req.body;
         const photo = req.file ? req.file.path : null;
-        const newPedido = await pedidoModel.createPedido(name, quantidade, valor, endereco, entrega_id, photo);
+        const newPedido = await pedidoModel.createPedido(name, quantidade, valor, endereco, status, entrega_id, photo);
 
         res.status(201).json(newPedido);
     } catch (error) {
@@ -45,8 +45,8 @@ const deletePedido = async (req, res) => {
 
 const updatePedido = async (req, res) => {
     try {
-        const { name, quantidade, valor, endereco, entrega_id } = req.body;
-        const updatePedido = await pedidoModel.updatePedido(req.params.id, name, quantidade, valor, endereco, entrega_id);
+        const { name, quantidade, valor, endereco, status, entrega_id } = req.body;
+        const updatePedido = await pedidoModel.updatePedido(req.params.id, name, quantidade, valor, endereco, status, entrega_id);
         if (!updatePedido) {
             return res.status(404).json({ message: "Pedido não encontrado." });
         }
