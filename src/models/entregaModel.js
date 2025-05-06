@@ -44,4 +44,22 @@ const deletePedido = async (id) => {
     return { message: "Pedido deletado com sucesso!" };
 };
 
-module.exports = { getPedidos, getPedidoById, createWizard, updatePedido, deletePedido };
+const getEntregas = async () => {
+    const result = await pool.query(`SELECT * FROM entregas`);
+    return result.rows;
+};
+
+const getEntregaById = async (id) => {
+    const result = await pool.query(`SELECT * FROM entregas WHERE id = $1`, [id]);
+    return result.rows[0];
+};
+
+const deleteEntrega = async (id) => {
+    const result = await pool.query(`DELETE FROM entregas WHERE id = $1 RETURNING *`, [id]);
+    if (result.rowCount === 0) {
+        return { error: "Entrega não encontrada!" };
+    }
+    return { message: "Entrega deletada com sucesso!" };
+};
+
+module.exports = { getPedidos, getPedidoById, createWizard, updatePedido, deletePedido, getEntregas, getEntregaById, deleteEntrega };

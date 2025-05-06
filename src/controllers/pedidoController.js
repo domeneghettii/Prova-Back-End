@@ -23,13 +23,14 @@ const getPedido = async (req, res) => {
 
 const createPedido = async (req, res) => {
     try {
-        const { name, quantidade, valor, endereco, entrega_id} = req.body;
-        const photo = req.file ? req.file.path : null; // Verifica se a imagem foi enviada
+        const { name, quantidade, valor, endereco, entrega_id } = req.body;
+        const photo = req.file ? req.file.path : null; 
         const newPedido = await pedidoModel.createPedido(name, quantidade, valor, endereco, entrega_id, photo);
 
         res.status(201).json(newPedido);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao criar pedido." });
+        console.error("Erro ao criar pedido:", error); 
+        res.status(500).json({ message: "Erro ao criar pedido.", details: error.message }); 
     }
 };
 
