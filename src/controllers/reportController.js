@@ -6,8 +6,12 @@ const entregaModel = require("../models/entregaModel");
 
 const exportPedidoPDF = async (req, res) => {
     try {
+        console.log("Iniciando geração do PDF..."); // Log para início do processo
         const pedidos = await pedidoModel.getPedidos();
         const entregas = await entregaModel.getEntregas();
+
+        console.log("Pedidos recuperados:", pedidos); // Log dos pedidos recuperados
+        console.log("Entregas recuperadas:", entregas); // Log das entregas recuperadas
 
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader("Content-Disposition", "attachment; filename=pedidos.pdf");
@@ -22,10 +26,6 @@ const exportPedidoPDF = async (req, res) => {
         // Cabeçalho
         doc.fontSize(18).text("id | name | endereco | telefone | produto", { underline: true });
         doc.moveDown(0.5);
-
-        // Adicionar dados dos pedidos
-        pedidos.forEach((pedido) => {
-            doc.text(
                 `${pedido.id} | ${pedido.name} | ${pedido.endereco} | ${pedido.telefone} | ${pedido.produto}`
             );
         });
