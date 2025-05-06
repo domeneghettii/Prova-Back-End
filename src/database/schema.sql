@@ -8,7 +8,6 @@ CREATE TABLE entregas (
     endereco VARCHAR(255) NOT NULL,
     telefone VARCHAR(15) NOT NULL,
     produto VARCHAR(100) NOT NULL
-
 );
 
 CREATE TABLE pedidos (
@@ -17,6 +16,7 @@ CREATE TABLE pedidos (
     quantidade INTEGER NOT NULL,
     valor NUMERIC(10, 2) NOT NULL,
     endereco VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL,
     entrega_id INTEGER REFERENCES entregas(id) ON DELETE SET NULL
 );
 
@@ -25,7 +25,7 @@ INSERT INTO entregas (name, endereco, telefone, produto) VALUES
     ('Entregador 2', 'Rua BD, 383', '0987654321', 'Smartphone Samsung'),
     ('Entregador 3', 'Rua CA, 921', '1122334455', 'Fone de Ouvido Bluetooth');
 
-INSERT INTO pedidos (name, quantidade, valor, endereco, entrega_id) VALUES 
-    ('Pedido 1', 2, 25.99, 'Rua Jardim Nova Europa, 101', 1),
-    ('Pedido 2', 1, 47.50, 'Rua Mercidio Pazelli, 02', 2),
-    ('Pedido 3', 3, 50.90, 'Rua Santos, 190', 3);
+INSERT INTO pedidos (name, quantidade, valor, endereco, status, entrega_id) VALUES 
+    ('Pedido 1', 2, 25.99, 'Rua Jardim Nova Europa, 101', 'entregue', 1),
+    ('Pedido 2', 1, 47.50, 'Rua Mercidio Pazelli, 02', 'em entregue',  2),
+    ('Pedido 3', 3, 50.90, 'Rua Santos, 190','pendente', 3);

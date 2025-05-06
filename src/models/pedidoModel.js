@@ -44,4 +44,14 @@ const deletePedido = async (id) => {
     return { message: "Pedido deletado com sucesso!" };
 };
 
-module.exports = { getPedidos, getPedidoById, createPedido, updatePedido, deletePedido };
+const getPedidosByStatus = async (status) => {
+    const result = await pool.query(
+        `SELECT pedidos.*, entregas.name AS entrega_name 
+         FROM pedidos
+         LEFT JOIN entregas ON pedidos.entrega_id = entregas.id 
+         WHERE pedidos.status = $1`, [status]
+    );
+    return result.rows;
+};
+
+module.exports = { getPedidos, getPedidoById, createPedido, updatePedido, deletePedido, getPedidosByStatus };

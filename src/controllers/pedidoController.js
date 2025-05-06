@@ -56,5 +56,25 @@ const updatePedido = async (req, res) => {
     }
 };
 
-module.exports = { getAllPedidos, getPedido, createPedido, deletePedido, updatePedido };
+const filterPedidosByStatus = async (req, res) => {
+    const { status } = req.query; 
+    try {
+        if (!status) {
+            return res.status(400).json({ message: "O parâmetro 'status' é obrigatório." });
+        }
+
+        const pedidos = await  filterPedidosByStatus (status);
+
+        if (pedidos.length === 0) {
+            return res.status(404).json({ message: "Nenhum pedido encontrado com o status especificado." });
+        }
+
+        res.status(200).json(pedidos);
+    } catch (error) {
+        console.error("Erro ao buscar pedidos por status:", error); 
+        res.status(500).json({ message: "Erro ao buscar pedido." });
+    }
+};
+
+module.exports = { getAllPedidos, getPedido, createPedido, deletePedido, updatePedido, filterPedidosByStatus };
 
