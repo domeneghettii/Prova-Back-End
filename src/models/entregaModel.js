@@ -14,13 +14,13 @@ const getPedidoById = async (id) => {
         `SELECT pedidos.*, entregas.name AS entrega_name 
          FROM pedidos
          LEFT JOIN entregas ON pedidos.entrega_id = entregas.id 
-         WHERE pedidos.id = $1`, [id]
+         WHERE pedidos.id = $1`, [id] 
     );
     return result.rows[0];
 };
 
 //Atualizar para receber photo.
-const createPedido = async (name, quantidade, valor, endereco, entrega_id,  photo) => {
+const createWizard = async (name, quantidade, valor, endereco, entrega_id, photo) => {
     const result = await pool.query(
         `INSERT INTO pedidos (name, quantidade, valor, endereco, entrega_id, photo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
         [name, quantidade, valor, endereco, entrega_id, photo]
@@ -37,11 +37,11 @@ const updatePedido = async (id, name, quantidade, valor, endereco, entrega_id) =
 };
 
 const deletePedido = async (id) => {
-    const result = await pool.query(`DELETE FROM pedidos WHERE id = $1 RETURNING *`, [id]);
+    const result = await pool.query(`DELETE FROM pedidos WHERE id = $1 RETURNING *`,[id]);
     if (result.rowCount === 0) {
         return { error: "Pedido não encontrado!" };
     }
     return { message: "Pedido deletado com sucesso!" };
 };
 
-module.exports = { getPedidos, getPedidoById, createPedido, updatePedido, deletePedido };
+module.exports = { getPedidos, getPedidoById, createWizard, updatePedido, deletePedido };
